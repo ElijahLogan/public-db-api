@@ -295,3 +295,46 @@ npm i express
 ```
 
 
+
+### create api that will connect to postgres instance and insert data into it from http requests. 
+
+
+```bash 
+ vim index.js
+ ```
+
+**copy and paste into index.js file**
+
+```bash
+const express = require("express");
+const bodyParser = require('body-parser');
+const postgres = require('postgres')
+const https = require('https');
+const http = require('http');
+
+
+const app = express();
+
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+const PORT = 80;
+
+
+// Listen both http & https ports
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer( app);
+
+httpServer.listen(80, () => {
+    console.log('HTTP Server running on port 80');
+});
+
+httpsServer.listen(443, () => {
+    console.log('HTTPS Server running on port 443');
+});
+
+```
